@@ -1,6 +1,8 @@
+#changed
 import librosa
 import tensorflow as tf
 import numpy as np
+import cv2
 
 SAVED_MODEL_PATH = "model.h5"
 SAMPLES_TO_CONSIDER = 22050
@@ -82,7 +84,8 @@ def Keyword_Spotting_Service():
 
 
 if __name__ == "__main__":
-
+    blank_image = np.zeros((100, 600, 3), np.uint8)
+    blank_image[:] = (125,255,0)
     # create 2 instances of the keyword spotting service
     kss = Keyword_Spotting_Service()
     kss1 = Keyword_Spotting_Service()
@@ -91,13 +94,14 @@ if __name__ == "__main__":
     assert kss is kss1
 
     # make a prediction
+
     keyword = kss.predict("test/happy.wav")
+    result = str(keyword).split('\\')
     print("happy = ",keyword)
-    keyword = kss.predict("test/go(bayram).wav")
-    print("go = ", keyword)
-    keyword = kss.predict("test/down.wav")
-    print("down = ", keyword)
-    keyword = kss.predict("test/one.wav")
-    print("one = ", keyword)
-    keyword = kss.predict("test/two.wav")
-    print("two = ", keyword)
+
+
+    cv2.putText(blank_image, ("Your result is:" + str(result[1])), (150, 55), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255),2)
+
+
+    cv2.imshow("Result", blank_image)
+    cv2.waitKey(0)
