@@ -1,4 +1,3 @@
-#changed
 import librosa
 import tensorflow as tf
 import numpy as np
@@ -85,7 +84,7 @@ def Keyword_Spotting_Service():
 
 if __name__ == "__main__":
     blank_image = np.zeros((100, 600, 3), np.uint8)
-    blank_image[:] = (125,255,0)
+    blank_image[:] = (0,0,0)
     # create 2 instances of the keyword spotting service
     kss = Keyword_Spotting_Service()
     kss1 = Keyword_Spotting_Service()
